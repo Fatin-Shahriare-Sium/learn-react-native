@@ -1,11 +1,11 @@
-import { TouchableOpacity ,Text,StyleSheet} from "react-native"
+import {Text,StyleSheet, Pressable} from "react-native"
 
 
 let CustomBtn=({btnName,handlePress,isLoading})=>{
     return(
-        <TouchableOpacity style={styles.btn} onPress={handlePress}>
+        <Pressable style={styles.btn} onPress={handlePress}>
             <Text style={{color:"white",fontWeight:"500",fontSize:"1rem"}}>{btnName}</Text>
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         padding:".3rem",
         borderRadius:"17px",
-        marginTop:"5%"
+        marginTop:"5%",
+        zIndex:'5'
     }
 })

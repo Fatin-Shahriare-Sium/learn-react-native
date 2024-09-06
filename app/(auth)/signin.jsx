@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomField from '../../components/customField'
 import CustomBtn from '../../components/customBtn'
+import { Link } from 'expo-router'
 
 const SignIn = () => {
   return (
@@ -12,6 +13,10 @@ const SignIn = () => {
           <CustomField title="Email" placeholder="email"></CustomField>
           <CustomField title="Password" placeholder="Password"></CustomField>
           <CustomBtn btnName="Sign In" ></CustomBtn>
+            <View style={{display:"flex",margin:"1rem"}}>
+                <Text style={{color:"white"}}>Don't have an account? {<Link style={{color:"#8080ed",textDecorationLine:"underline"}} href="/signup">Sign Up</Link>}</Text>
+                
+            </View>
         </View>
       </ScrollView>
     </SafeAreaView>

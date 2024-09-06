@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { TextInput ,Image} from 'react-native'
 import icon from ".././constents/icon"
 
-const CustomField = ({title,placeholder}) => {
+const CustomField = ({title,placeholder,handleInputBox}) => {
     let [showPass,setshowPass]=useState(false)
   return (
     <View style={{display:"flex", flexDirection:"row",overflow:"hidden",margin:".3rem"}}>
         <View style={styles.inputBox}>
             <Text style={{color:"white"}}>{title}</Text>
-                <TextInput secureTextEntry={title==="Password" && showPass===false?true:false}  placeholder={placeholder}  style={styles.inputArea} >
+                <TextInput onChangeText={handleInputBox} secureTextEntry={title==="Password" && showPass===false?true:false}  placeholder={placeholder}  style={styles.inputArea} >
 
                 </TextInput>
                
@@ -29,9 +29,13 @@ const styles = StyleSheet.create({
         border:"2px solid white",
         color:"white",
         fontSize:"1.3rem",
-        padding:".3rem"
+        padding:".1rem",
+        borderRadius:"4px",
+    
+        
         
     },
+   
     inputBox:{
         width:"90%",
        

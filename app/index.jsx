@@ -11,7 +11,7 @@ export default function App() {
           <View style={styles.container}>
             <Image source={image.logo}/>
             <Text style={styles.text}>Knowledge is power</Text>
-            <CustomBtn btnName="Login" handlePress={()=> router.push("/signin")}></CustomBtn>
+            <CustomBtn btnName="Login" handlePress={()=>router.push("/signin")}></CustomBtn>
           </View>
           
         </ScrollView>
