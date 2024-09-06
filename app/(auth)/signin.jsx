@@ -1,11 +1,36 @@
 import { StyleSheet, Text, View,TextInput,ScrollView } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomField from '../../components/customField'
 import CustomBtn from '../../components/customBtn'
 import { Link } from 'expo-router'
-
+import {signIn} from "../../lib/appwrite"
 const SignIn = () => {
+  let [userInfo,setUserInfo]=useState({email:"",password:""})
+  let [isLogged,setIsLogged]=useState(false)
+  let [submitting,setSubmitting]=useState(false)
+  const submit = async () => {
+  
+    if (userInfo.email === "" || userInfo.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+      window.alert("Please fill in all fields")
+    }
+  
+    setSubmitting(true);
+    try {
+      const result = await signIn(userInfo.email, userInfo.password);
+      
+      setIsLogged(true);
+
+      router.replace("/home");
+    } catch (error) {
+     console.log(error)
+      window.alert(error)
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <SafeAreaView style={{height:"100%"}} >
       <ScrollView contentContainerStyle={{height:"100%"}}>

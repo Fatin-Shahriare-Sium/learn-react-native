@@ -3,6 +3,7 @@ import React from 'react'
 import { useFonts } from 'expo-font';
 import { Slot, Stack,SplashScreen } from 'expo-router'
 import { useEffect } from 'react';
+import GlobalProvider from '../context/globalContext';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 
 
@@ -39,13 +40,20 @@ const Layout = () => {
   }
 
   return (
-    <>
-    <Stack>
-      <Stack.Screen name='settings'  options={{headerShown:false}}/>
-      <Stack.Screen name='index'  options={{headerShown:false}}/>
-    </Stack>
+
+      <Stack screenOptions={{headerShown:false}}>
+           <GlobalProvider>
+  
+          <Stack.Screen name='settings'  options={{headerShown:false}}/>
+          <Stack.Screen name='index'  options={{headerShown:false}}/>
+          <Stack.Screen name='(auth)' options={{headerShown:false}}/>
+          <Stack.Screen name='(tabs)' options={{headerShown:false}}/>
+          </GlobalProvider>
+      </Stack>
+     
    
-    </>
+    
+
   )
 }
 
