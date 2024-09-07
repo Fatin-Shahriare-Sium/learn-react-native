@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View,TextInput,ScrollView } from 'react-native'
+import { StyleSheet, Text, View,TextInput,ScrollView,Alert } from 'react-native'
 import React,{useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomField from '../../components/customField'
 import CustomBtn from '../../components/customBtn'
-import { Link } from 'expo-router'
+import { Link, Redirect } from 'expo-router'
 import {signIn} from "../../lib/appwrite"
 const SignIn = () => {
   let [userInfo,setUserInfo]=useState({email:"",password:""})
@@ -19,10 +19,11 @@ const SignIn = () => {
     setSubmitting(true);
     try {
       const result = await signIn(userInfo.email, userInfo.password);
+      console.log("sign in seees",result);
       
       setIsLogged(true);
 
-      router.replace("/home");
+      return <Redirect href="/home"/>
     } catch (error) {
      console.log(error)
       window.alert(error)
@@ -35,9 +36,9 @@ const SignIn = () => {
     <SafeAreaView style={{height:"100%"}} >
       <ScrollView contentContainerStyle={{height:"100%"}}>
         <View style={styles.container}>
-          <CustomField title="Email" placeholder="email"></CustomField>
-          <CustomField title="Password" placeholder="Password"></CustomField>
-          <CustomBtn btnName="Sign In" ></CustomBtn>
+          <CustomField title="Email" handleInputBox={(e)=>{setUserInfo({...userInfo,email:e})}} placeholder="email"></CustomField>
+          <CustomField title="Password" handleInputBox={(e)=>{setUserInfo({...userInfo,password:e})}} placeholder="Password"></CustomField>
+          <CustomBtn handlePress={submit} btnName="Sign In" ></CustomBtn>
             <View style={{display:"flex",margin:"1rem"}}>
                 <Text style={{color:"white"}}>Don't have an account? {<Link style={{color:"#8080ed",textDecorationLine:"underline"}} href="/signup">Sign Up</Link>}</Text>
                 

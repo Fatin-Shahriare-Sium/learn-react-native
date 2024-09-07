@@ -1,14 +1,19 @@
-import React ,{useContext,createContext, useState, useEffect} from "react"
-import {getCurrentUser} from "../lib/appwrite"
-let GlobalContext=React.createContext({userx:null,isLogged:false});
-export const useGlobalContext = () => useContext(GlobalContext);
+import React ,{useContext,createContext, useState, useEffect} from "react";
+import {getCurrentUser} from "../lib/appwrite";
+
+let GlobalContext=createContext({userx:null,isLogged:false});
+export const useGlobalContext = ()=>useContext(GlobalContext);
 console.log("GlobalContext",GlobalContext);
 
 let GlobalProvider=({children})=>{
-    let[userx,setUserx]=useState(null);
-    let[isLogged,setIsLogged]=useState(false);
+    let globalAuth =useContext(GlobalContext);
+    console.log("global auth",children);
+    
+    let [userx,setUserx]=useState(null);
+    
+    let [isLogged,setIsLogged]=useState(false);
     useEffect(()=>{
-        console.log("current user")
+        console.log("current user");
         getCurrentUser()
        .then((res)=>{
             setIsLogged(true);
@@ -19,9 +24,11 @@ let GlobalProvider=({children})=>{
         })
     },[]);
     
-    <GlobalContext.Provider value={{userx,isLogged:true}}>
-        {children}
+    return (
+        <GlobalContext.Provider value={{userx,isLogged}}>
+            {children}
     </GlobalContext.Provider>
+    );
 }
 
 export default GlobalProvider;

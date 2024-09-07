@@ -10,9 +10,9 @@ import { useEffect } from 'react';
 export default function App() {
   let gcontext=useGlobalContext();
   console.log("gcontext",gcontext);
-  // useEffect(()=>{
-  //   isLogged==true && ( <Redirect href="/home" />)
-  // },[])
+  useEffect(()=>{
+    gcontext.isLogged==true && ( <Redirect href="/home" />)
+  },[])
   return (
     <SafeAreaView style={{height:"100%"}}>
         <ScrollView contentContainerStyle={{height:"100%"}}>
