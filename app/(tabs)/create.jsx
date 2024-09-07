@@ -12,7 +12,8 @@ const Create = () => {
   const pickImage = async (type) => {
     // No permissions request is necessary for launching the image library
     const result = await DocumentPicker.getDocumentAsync();
-
+    //result.output[Object.keys(result.output)[0]]---- this line of code gives the real file structure.
+    //it works like a charm,Alhamdulillah
     uploadFile(result.output[Object.keys(result.output)[0]]).then(()=>{})
     console.log("img picker",result.output[Object.keys(result.output)[0]]);
     
