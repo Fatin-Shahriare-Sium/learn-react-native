@@ -1,38 +1,49 @@
-import { ScrollView, StyleSheet, Text, View,Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, View,Image, Alert ,FlatList} from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { fetchUserVideos, getCurrentUser } from '../../lib/appwrite'
+import { fetchUserVideos, getCurrentUser,logout } from '../../lib/appwrite'
 import { useGlobalContext } from '../../context/globalContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import CustomBtn from '../../components/customBtn'
+import VideoCard from '../../components/videoCard'
+import { Redirect, router } from 'expo-router'
 const Profile = () => {
   let [user,setUser]=useState({namex:"",email:"",avatar:"",id:""});
   let [userVideo,setUserVideo]=useState([])
   let x=useGlobalContext()
   console.log("useGlobalContext in progile",x);
-  
+  let handleLogOut=()=>{
+    logout().then((res)=>{
+      return router.push("/")
+    })
+    
+  }
   useEffect(()=>{
     getCurrentUser().then((res)=>{
       console.log("get acc",res);
+      if(res==null){
+        return router.push("/")
+       }
       setUser({namex:res.username,email:res.email,avatar:res.avatar})
       fetchUserVideos(res.$id).then((res)=>{
         console.log("user video",res);
         setUserVideo(res);
       })
-     
+    
     })
   },[])
   return (
-    <SafeAreaView>
-         <ScrollView >
-            <View  style={styles.profileWrapper}>
+    <SafeAreaView style={styles.profileWrapper}>
+         <ScrollView  contentContainerStyle={{height:"100%"}} >
+            <View  >
               <Text>Your Profle</Text>
             <View>
-            <Image style={{width:70,height:70,borderRadius:"70px"}} source={user.avatar}/>
-              <Text>{user.namex}</Text>
-              <Text>{`Email:${user.email}`}</Text>
+            <Image style={{width:150,height:150,borderRadius:"100px",display:"flex",margin:"auto"}} source={user.avatar}/>
+              <Text style={{textAlign:"center",fontWeight:"700",fontSize:"3rem",textAlign:"center",color:"white"}}>{user.namex}</Text>
+              <Text style={{textAlign:"center",fontWeight:"500",fontSize:"2rem",color:"white"}}>{`Email:${user.email}`}</Text>
             </View>
             <View>
                 <View>
-                  {userVideo.length<=0?<Text>You have not uploaded any video</Text>:
+                  {userVideo.length<=0?<Text  style={{textAlign:"center",fontWeight:"700",color:"white",fontSize:"1rem",textAlign:"center"}}>You have not uploaded any video 😔</Text>:
                   <View>
                               <FlatList
                                   data={userVideo}
@@ -58,6 +69,9 @@ const Profile = () => {
                   </View>
                   }
                 </View>
+                <View style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                  <CustomBtn handlePress={handleLogOut} btnName="Log Out"></CustomBtn>
+                </View>
             </View>
             </View>
          </ScrollView>
@@ -74,6 +88,8 @@ const styles = StyleSheet.create({
   profileWrapper:{
     display:"flex",
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
+    backgroundColor:"black",
+    height:"100%"
   }
 })

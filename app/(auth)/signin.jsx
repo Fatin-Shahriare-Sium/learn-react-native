@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomField from '../../components/customField'
 import CustomBtn from '../../components/customBtn'
-import { Link, Redirect } from 'expo-router'
+import { Link, Redirect, router } from 'expo-router'
 import {signIn} from "../../lib/appwrite"
 const SignIn = () => {
   let [userInfo,setUserInfo]=useState({email:"",password:""})
@@ -23,7 +23,7 @@ const SignIn = () => {
       
       setIsLogged(true);
 
-      return <Redirect href="/home"/>
+      return router.push("/home")
     } catch (error) {
      console.log(error)
       window.alert(error)

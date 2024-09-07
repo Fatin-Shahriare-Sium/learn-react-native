@@ -23,7 +23,7 @@ const SignUp = () => {
       
       setIsLogged(true);
 
-      router.replace("/home");
+      return router.push("/home");
     } catch (error) {
      console.log(error)
       window.alert(error)
