@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
    
     inputBox:{
-        width:"90%",
+        width:"100%",
        
     },
     inputEye:{

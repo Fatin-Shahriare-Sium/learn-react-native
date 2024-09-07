@@ -41,15 +41,14 @@ const Layout = () => {
 
   return (
 
-      <Stack screenOptions={{headerShown:false}}>
-           <GlobalProvider>
-  
+     <GlobalProvider>
+       <Stack screenOptions={{headerShown:false}}>
           <Stack.Screen name='settings'  options={{headerShown:false}}/>
           <Stack.Screen name='index'  options={{headerShown:false}}/>
           <Stack.Screen name='(auth)' options={{headerShown:false}}/>
           <Stack.Screen name='(tabs)' options={{headerShown:false}}/>
-          </GlobalProvider>
       </Stack>
+     </GlobalProvider>
      
    
     

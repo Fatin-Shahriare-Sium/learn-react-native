@@ -7,28 +7,31 @@ console.log("GlobalContext",GlobalContext);
 
 let GlobalProvider=({children})=>{
     let globalAuth =useContext(GlobalContext);
-    console.log("global auth",children);
+   
     
     let [userx,setUserx]=useState(null);
     
     let [isLogged,setIsLogged]=useState(false);
     useEffect(()=>{
-        console.log("current user");
+        
         getCurrentUser()
        .then((res)=>{
-            setIsLogged(true);
             setUserx(res);
+            setIsLogged(true);
+            console.log("global auth useffet",res);
         }).catch((err)=>{
             setIsLogged(false);
             setUserx(null)
         })
     },[]);
     
-    return (
+  
+       return(
         <GlobalContext.Provider value={{userx,isLogged}}>
-            {children}
-    </GlobalContext.Provider>
-    );
+        {children}
+</GlobalContext.Provider>
+       )
+    
 }
 
 export default GlobalProvider;

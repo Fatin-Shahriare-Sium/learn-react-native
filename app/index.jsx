@@ -11,8 +11,10 @@ export default function App() {
   let gcontext=useGlobalContext();
   console.log("gcontext",gcontext);
   useEffect(()=>{
-    gcontext.isLogged==true && ( <Redirect href="/home" />)
-  },[])
+   if(gcontext.isLogged==true){
+    return router.push("/home");
+   }
+  },[gcontext.isLogged])
   return (
     <SafeAreaView style={{height:"100%"}}>
         <ScrollView contentContainerStyle={{height:"100%"}}>
