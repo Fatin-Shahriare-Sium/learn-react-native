@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams, usePathname } from 'expo-router'
 import { searchVideo } from '../../lib/appwrite';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import VideoCard from "../../components/videoCard"
+import  SearchInput from "../../components/searchInput"
 const Search = () => {
+
   let {query}=useLocalSearchParams();
   let [videoProperty,setVideoProperty]=useState([]);
   useEffect(()=>{
@@ -16,7 +18,10 @@ const Search = () => {
   return (
     <SafeAreaView style={{height:"100%",backgroundColor:"black"}}>
       <ScrollView >
-      <View>
+      <View >
+          <View style={{display:"flex",justifyContent:"center",alignItems:"center"}} >
+          <SearchInput></SearchInput>
+          </View>
       <Text >Search Results</Text>
       <FlatList
         data={videoProperty}
@@ -32,7 +37,7 @@ const Search = () => {
         }}
         ListFooterComponent={()=>{
           return(
-            <Text Text style={{color:"red"}}>tHNAKS FOE WATCGING</Text>
+            <Text Text style={{color:"red"}}></Text>
           )
           
         }}
